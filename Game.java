@@ -8,7 +8,7 @@ public class Game {
 
         // Determine the winning card among the cards in the center
         for (Card card : cardsInCenter) {
-            if (card.getSuit().equals(leadCard.getSuit())) {
+            if (card.getSuit().equals(leadCard.getSuit()) && !winningCard.equals(null)) {
                 if (card.getRankValue() > winningCard.getRankValue()) {
                     winningCard = card;
                 }
@@ -26,14 +26,12 @@ public class Game {
         return index;
     }
 
-    public static int getWinningPlayerIndex(Player[] players, Player player) {
-        int index = -1;
-        for (int i = 0; i < 4; i++) {
-            if (players[i].getName().equals(player.getName())) {
-                index = i;
-            } 
+    public static boolean isValidMove(Card card, Card leadCard) {
+        if ((!card.getSuit().equals(leadCard.getSuit())) && (!card.getRank().equals(leadCard.getRank()))) {
+            return false;
+        } else {
+            return true;
         }
-        return index;
     }
 
     public static void printPlayer(Player[] players) {
@@ -60,17 +58,35 @@ public class Game {
 
     }
 
+    public static void printScore(Player[] player) {
+        System.out.print("Score: ");
+
+            for (int i = 0; i < 4; i++) {
+                int score = player[i].getScore();
+
+                if (i < 3) {
+                    System.out.print(player[i].getName() + " = " + score + " | ");
+                } else if (i == 3) {
+                    System.out.print(player[i].getName() + " = " + score);
+                }
+            }
+            System.out.println();
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         boolean exit = false;
+        boolean turnEnd = false;
+        boolean gameEnd = false;
+        int[] totalScore = new int[4];
 
         do { // restart loop
 
-            // create deck for this round
+            // create deck
             Deck deck = new Deck();
             deck.createDeck();
             deck.shuffleDeck();
-            deck.printDeck();
+            gameEnd = false;
 
             System.out.println();
 
@@ -81,124 +97,194 @@ public class Game {
                 ArrayList<Card> handCards = new ArrayList<Card>();
                 for (int j = 0; j < 7; j++) {
                     handCards.add(deck.dealCards());
-                }
-                System.out.println("Player" + (i + 1) + " : ");
-                player[i] = new Player(handCards, "Player" + (1 + i));
-                player[i].showPlayerCards();
+                }   
+                player[i] = new Player(handCards, "Player" + (i + 1));
             }
+            
 
-            deck.printDeck();
-
-            boolean win = false;
             boolean restart = false;
+
             int trickCounter = 1;
             int currentPlayer = -1;
+            int winner = -1;
+            while (!gameEnd) { // game loop
 
-            while (!win || !exit) { // game loop
+
+                // inherit back the previous round score if exists
+                for (int i = 0; i < 4; i++) {
+                    player[i].setScore(totalScore[i]);
+                }
+
+                // checking if any of the player's hand is empty
+                for (int i = 0; i < 4; i++) {
+                    if (player[i].handIsEmpty()) {
+                        gameEnd = true;
+                        winner = i;
+                        break;
+                    }
+                }
+                // break if player's hand is empty
+                if (gameEnd) {
+                    for (int i = 0; i < 4; i++) {
+                        player[i].calculateScore();
+                        totalScore[i] += player[i].calculateScore();
+                    }
+                    
+                    System.out.println("Winner of this round is: " + player[winner].getName());
+                    printScore(player);
+                    System.out.print("Do you want to restart? (y/n) ");
+                    String ans = input.next();
+                    if (ans.equals("y") || ans.equals("Y")) {
+                        restart = true;
+                    }
+                    break;
+                }
 
                 Card leadCard = null;
                 Center center = new Center();
-
+                int i = 0;
                 if (trickCounter == 1) {
                     // since only 1st loop require the deck to determine the 1st player, then the
                     // subsequent trick is determined by the winning player
+                    // to prevent the lead card from deck is too large from players' hand, there exists this loop
                     leadCard = deck.dealCards();
-                    System.out.println("The game has started! \nThe first lead card is " + leadCard);
+                    while (leadCard.getRankValue() > 7){
+                        deck.returnCard(leadCard);
+                        leadCard = deck.dealCards();
+                    }
+                    System.out.println("The game has started!");
                     center.addCard(leadCard);
-                } 
+                    printPlayer(player);
+                    deck.printDeck();
+                    center.printCenter();
+                    printScore(player);
+                }
 
-                
+                do { // loop for each player
 
-                // Determine the lead player of 1st trick
-
-                for (int i = 0; i < 4; i++) { // player rounds
-                    // first iteration use the method
                     if (i == 0 && trickCounter == 1) {
                         currentPlayer = determineFirstPlayer(leadCard);
                     } else if (i == 0 && trickCounter != 1) {
                         currentPlayer = currentPlayer;
                     } else if (currentPlayer != -1 && currentPlayer != 3) { // if not -1 or 3
                         currentPlayer++;
-                    }  else { // else back to 0
+                    } else { // else back to 0
                         currentPlayer = 0;
                     }
 
-                    // printPlayer(player);
-                    // center.printCenter();
-                    System.out.print(player[currentPlayer].getName() + " plays: ");
+                    do { // player input loop
 
-                    String cardName = input.next();
-
-                    if (cardName.equals("s")) {
-                        restart = true;
-                        break;
-                    } else if (cardName.equals("x")) {
-                        exit = true;
-                        break;
-                    } else if (cardName.equals("d")) {
-                        Card nextCard = deck.dealCards();
-                        while (true) {
-                            player[currentPlayer].drawCards(nextCard);
-                            if (nextCard.getSuit().equals(leadCard.getSuit())) {
-                                break;
-                            }
-                            if (nextCard.getRank().equals(leadCard.getRank())) {
-                                break;
-                            }
-                            nextCard = deck.dealCards();
-                        }
-
-                        printPlayer(player);
-                        center.printCenter();
+                        turnEnd = false;
                         System.out.print(player[currentPlayer].getName() + " plays: ");
-                        cardName = input.next();
-                    } else {
+                        String cardName = input.next();
                         System.out.println();
-                        // create a temporary card
-                        Card tempCard = new Card(cardName.substring(1, 2), cardName.substring(0, 1));
-                        while (!player[currentPlayer].isValidMove(tempCard)) {
-                            System.out.println("Card does not exists. Please re-enter the card.");
-                            cardName = input.next();
-                            tempCard = new Card(cardName.substring(1, 2), cardName.substring(0, 1));
-                        }
-                        // System.out.println("Card rank : " + tempCard.getRankValue());
-                        // System.out.println("Card rank value: " + tempCard.getRankValue());
-                        center.addCard(tempCard);
-                        player[currentPlayer].playCard(tempCard);
-                        printPlayer(player);
-                        center.printCenter();
 
-                        
+                        if (cardName.equals("s") || cardName.equals("S")) {
+                            restart = true;
+                            break;
+                        }
+                        if (cardName.equals("x") || cardName.equals("X")) {
+                            exit = true;
+                            break;
+                        }
+                        if ((cardName.equals("d") && !deck.isEmpty()) ||
+                                (cardName.equals("D") && !deck.isEmpty())) {
+                            Card nextCard = deck.dealCards();
+                            while (true) {
+                                player[currentPlayer].drawCards(nextCard);
+                                if (nextCard.getSuit().equals(leadCard.getSuit())) {
+                                    break;
+                                }
+                                if (nextCard.getRank().equals(leadCard.getRank())) {
+                                    break;
+                                }
+                                if (deck.isEmpty() && !isValidMove(nextCard, leadCard)) {
+                                    System.out.println("Deck is empty");
+                                    turnEnd = true;
+                                    break;
+                                }
+                                nextCard = deck.dealCards();
+
+                            }
+                        }
+                        if (cardName.equals("d") && deck.isEmpty()) {
+                            System.out.println("Player" + player[i].getName() + "'s turn is skipped.");
+                            break;
+                        }
+
+                        if (!cardName.equals("d") && !cardName.equals("x") && !cardName.equals("s")) {
+
+                            Card tempCard = new Card(cardName.substring(1, 2).toUpperCase(), cardName.substring(0, 1));
+                            if (trickCounter != 1 && i == 0) {
+                                leadCard = tempCard;
+                            }
+                            if (!player[currentPlayer].isValidCard(tempCard)) {
+                                System.out.println("Invalid! Choose a card from your hands."); // check for card, does
+                                                                                               // it exists in player
+                                                                                               // hands
+                            } else if (!isValidMove(tempCard, leadCard)) {
+                                System.out.println("Invalid! Choose a card of the same suit/rank as lead card."); // check for player move,
+                                                                                                                  // do they play same rank/suit
+                            } else {
+                                center.addCard(tempCard);
+                                player[currentPlayer].playCard(tempCard);
+                                turnEnd = true;
+                            }
+
+                        }
+
+                        printPlayer(player);
+                        deck.printDeck();
+                        center.printCenter();
+                        printScore(player);
+
+                    } while (!turnEnd);
+
+                    i++;
+
+                    if (!exit && restart) {
+                        System.out.println("Game is restarting...");
+                        break;
                     }
-                }
+
+                    if (exit) {
+                        break;
+                    }
+
+                } while (i != 4); // loop for 4 players
 
                 if (!exit && !restart) {
                     if (trickCounter != 1) {
                         leadCard = center.getCards().get(0);
                     }
                     int trickWinner = determineTrickWinner(leadCard, center.getCards(), player);
-                    System.out.println("The winning player of the trick is: " + player[trickWinner].getName());
+                    System.out.println("The winner of the trick is: " + player[trickWinner].getName());
+                    System.out.println();
                     trickCounter++;
-                    
-                    currentPlayer = trickWinner;
-                }
 
-                if (restart && !exit) {
-                    System.out.println("Game is restarting...");
-                    trickCounter = 1;
+                    currentPlayer = trickWinner;
+                    printPlayer(player);
+                    deck.printDeck();
+                    printScore(player);
                 }
 
                 if (exit) {
                     break;
                 }
             }
+
+            if (gameEnd && !restart) {
+                break;
+            }
+
         } while (!exit);
 
         if (exit) {
-            System.out.println("Goodbye!");
+            System.out.println("Goodbye.");
         }
 
     }
+
 }
 
 class Center {
@@ -210,13 +296,6 @@ class Center {
 
     public void addCard(Card card) {
         cards.add(card);
-    }
-
-    public Card getTopCard() {
-        if (!cards.isEmpty()) {
-            return cards.get(cards.size() - 1);
-        }
-        return null;
     }
 
     public ArrayList<Card> getCards() {
