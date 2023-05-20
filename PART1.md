@@ -4,7 +4,7 @@
 
 No | ID         | Name                      | Task descriptions                                                  | Contribution %
 -- | ---------- | ------------------------- | -------------------------------------------------------------------| --------------
-1  | 1221303664 | Ng Yi Min                 | Did feature 1, 2, 5                                                |25
+1  | 1221303664 | Ng Yi Min                 | Did feature 1, 2, 5 and additional command such as 's' restart and 'x' exit                 |25
 2  | 1211101153 | Mischelle Thanusha Julius | Did feature 3, 7                                                   |25
 3  | 1221305225 | Chin Jhun Loc             | Did feature 4, 6, 8                                                |25
 4  | 1221303663 | Chan Yeng Hui             |  Did scoring system                                                |25
