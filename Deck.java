@@ -78,4 +78,8 @@ public class Deck{
         return cardList.isEmpty();
     }
 
+    public void returnCard(Card card) {
+        cardList.add(card);
+    }
+
 }
