@@ -33,15 +33,6 @@ public class Player {
         return index;
     }
 
-    // debugging purpose
-    // public void showSpecificCard(int i) {
-    // System.out.println(hands.get(i));
-    // }
-    // debugging purpose
-    // public int noOfCardLeft() {
-    // return hands.size();
-    // }
-
     public void playCard(Card tempCard) {
         hands.remove(compareCard(tempCard));
         playedCards.add(tempCard);
