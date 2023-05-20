@@ -208,7 +208,7 @@ public class Game {
                             }
                         }
                         if (cardName.equals("d") && deck.isEmpty()) {
-                            System.out.println("Player" + player[i].getName() + "'s turn is skipped.");
+                            System.out.println(player[currentPlayer].getName() + "'s turn is skipped.");
                             break;
                         }
 
