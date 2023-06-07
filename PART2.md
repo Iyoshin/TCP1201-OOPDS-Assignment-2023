@@ -4,7 +4,7 @@
 
 No | ID         | Name | Task descriptions | Contribution %
 -- | ---------- | ---- | ----------------- | --------------
-1  | 1221303664 |Ng Yi Min |  part 2 feature 1, 2,4, 5, 6           |
+1  | 1221303664 |Ng Yi Min |  part 2 feature 1, 2, 4, 5, 6           |
 2  |1211101153 |Mischelle Thanusha Julius |                   |
 3  |1221305225 | Chin Jhun Loc      |                   |
 4  | 1221303663 |Chan Yeng Hui   |  part 2 feature 3, 7                 |
