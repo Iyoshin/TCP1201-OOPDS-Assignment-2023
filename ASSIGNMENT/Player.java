@@ -12,6 +12,30 @@ public class Player {
         this.score = 0;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Card> getHands() {
+        return hands;
+    }
+
+    public void setHands(ArrayList<Card> hands) {
+        this.hands = hands;
+    }
+
     public void showPlayerCards() {
         System.out.println(hands);
     }
@@ -45,11 +69,6 @@ public class Player {
             return true;
         }
     }
-
-    public String getName() {
-        return name;
-    }
-
     public boolean hasPlayedCard(Card card) {
         return playedCards.contains(card);
     }
@@ -58,18 +77,11 @@ public class Player {
         return hands.isEmpty();
     }
 
-    // REMAINING CARDS
-    public ArrayList<Card> getHands() {
-        return hands;
-    }
+    
 
-    public int getScore() {
-        return score;
-    }
+    
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+    
 
     public int calculateScore() {
         int score = 0;
