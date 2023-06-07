@@ -39,7 +39,7 @@ No | Feature                                                                    
 5  | Can resume the game. The state of the game is restored when resuming a game (use file or database).        |y
 6  | Reset the game. All scores become zero. Round and trick number restart from 1.   |y
 7  | Support GUI playing mode (cards should be faced up or down as in the real game).The GUI can be in JavaFX, Swing, Spring, or Android.  |n
-8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                  |-
+8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                  |n
 
 
 ## D. Link to Part 2 GitHub Repo
