@@ -44,5 +44,5 @@ No | Feature                                                                    
 
 ## D. Link to Part 2 GitHub Repo
 
-https://link_to_your_GitHub_repo
+[https://link_to_your_GitHub_repo](https://github.com/Iyoshin/TCP1201-OOPDS-Assignment-2023)
 
