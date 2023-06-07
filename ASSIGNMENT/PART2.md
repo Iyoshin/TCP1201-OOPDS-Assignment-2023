@@ -4,10 +4,10 @@
 
 No | ID         | Name | Task descriptions | Contribution %
 -- | ---------- | ---- | ----------------- | --------------
-1  | 1221303664 |Ng Yi Min |                   |
+1  | 1221303664 |Ng Yi Min |  part 2 feature 1, 2,4, 5, 6           |
 2  |1211101153 |Mischelle Thanusha Julius |                   |
 3  |1221305225 | Chin Jhun Loc      |                   |
-4  | 1221303663 |Chan Yeng Hui   |                   |
+4  | 1221303663 |Chan Yeng Hui   |  part 2 feature 3, 7                 |
 
 
 ## B. Part 1 Feature Completion (Latest)
@@ -32,19 +32,14 @@ Mark Y for Complete, P for Partial done, N for Not implemented.
 
 No | Feature                                                                          | Completed (Y/P/N)
 -- | -------------------------------------------------------------------------------- | -----------------
-1  | If a player cannot follow suit or rank, the player must draw from the deck       |y
-   | until a card can be played.                                                      |
-2  | When the remaining deck is exhausted and the player cannot play,                 |y
-   | the player does not play in the trick.                                           |
+1  | If a player cannot follow suit or rank, the player must draw from the deck until a card can be played.      |y
+2  | When the remaining deck is exhausted and the player cannot play, the player does not play in the trick.                   |y
 3  | Finish a round of game correctly. Display the score of each player.              |y
 4  | Can exit and save the game (use file or database).                               |y
-5  | Can resume the game. The state of the game is restored when resuming a game      |y
-   | (use file or database).                                                          |
+5  | Can resume the game. The state of the game is restored when resuming a game (use file or database).        |y
 6  | Reset the game. All scores become zero. Round and trick number restart from 1.   |y
-7  | Support GUI playing mode (cards should be faced up or down as in the real game). |n
-   | The GUI can be in JavaFX, Swing, Spring, or Android.                             |
-8  | Keep the console output to facilitate checking.                                  |-
-   | The data in console output and the GUI must tally.                               |
+7  | Support GUI playing mode (cards should be faced up or down as in the real game).The GUI can be in JavaFX, Swing, Spring, or Android.  |n
+8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                  |-
 
 
 ## D. Link to Part 2 GitHub Repo
