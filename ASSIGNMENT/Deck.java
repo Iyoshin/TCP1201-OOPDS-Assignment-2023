@@ -11,6 +11,18 @@ public class Deck{
     public Deck(){
     }
 
+    public ArrayList<Card> getCardList() {
+        return cardList;
+    }
+
+    public void setCardList(ArrayList<Card> cardList) {
+        this.cardList = cardList;
+    }
+
+    public void clearDeck() {
+        cardList.clear();
+    }
+
     public void createDeck() {
         for (int i = 0; i < 4; i++) {
             if (i == 0) 
@@ -66,9 +78,7 @@ public class Deck{
         Collections.shuffle(cardList);
     }
 
-    public ArrayList<Card> getCardList() {
-        return cardList;
-    }
+    
 
     public Card dealCards() {
         return cardList.remove(0);
