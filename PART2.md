@@ -4,10 +4,10 @@
 
 No | ID         | Name | Task descriptions | Contribution %
 -- | ---------- | ---- | ----------------- | --------------
-1  | 1221303664 |Ng Yi Min |  part 2 feature 1, 2, 4, 5, 6           |
-2  |1211101153 |Mischelle Thanusha Julius |                   |
-3  |1221305225 | Chin Jhun Loc      |                   |
-4  | 1221303663 |Chan Yeng Hui   |  part 2 feature 3, 7                 |
+1  | 1221303664 |Ng Yi Min |  part 2 feature 1, 2, 4, 5, 6           |40
+2  |1211101153 |Mischelle Thanusha Julius |                   |15
+3  |1221305225 | Chin Jhun Loc      |                   |15
+4  | 1221303663 |Chan Yeng Hui   |  part 2 feature 3, 7                 |30
 
 
 ## B. Part 1 Feature Completion (Latest)
@@ -38,8 +38,8 @@ No | Feature                                                                    
 4  | Can exit and save the game (use file or database).                               |y
 5  | Can resume the game. The state of the game is restored when resuming a game (use file or database).        |y
 6  | Reset the game. All scores become zero. Round and trick number restart from 1.   |y
-7  | Support GUI playing mode (cards should be faced up or down as in the real game).The GUI can be in JavaFX, Swing, Spring, or Android.  |n
-8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                  |n
+7  | Support GUI playing mode (cards should be faced up or down as in the real game).The GUI can be in JavaFX, Swing, Spring, or Android.  |p
+8  | Keep the console output to facilitate checking. The data in console output and the GUI must tally.                                  |p
 
 
 ## D. Link to Part 2 GitHub Repo
